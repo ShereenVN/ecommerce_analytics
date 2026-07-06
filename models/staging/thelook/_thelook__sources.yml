@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: thelook
+    database: bigquery-public-data
+    schema: thelook_ecommerce
+    tables:
+      - name: orders
+        description: "Raw order transactions from TheLook e-commerce platform"
+      - name: order_items
+        description: "Individual line items within each order"
+      - name: products
+        description: "Product catalogue with categories and pricing"
+      - name: users
+        description: "Customer registration and demographic data"
