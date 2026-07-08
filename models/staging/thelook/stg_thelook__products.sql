@@ -17,7 +17,7 @@ renamed as (
         distribution_center_id
 
     from source
-
 )
 
 select * from renamed
+where product_name is not null

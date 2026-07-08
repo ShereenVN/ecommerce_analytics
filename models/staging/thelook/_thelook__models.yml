@@ -1,0 +1,73 @@
+version: 2
+
+models:
+  - name: stg_thelook__orders
+    description: "Cleaned orders from TheLook e-commerce platform"
+    columns:
+      - name: order_id
+        description: "Primary key for orders"
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Foreign key to customers"
+        tests:
+          - not_null
+      - name: order_status
+        description: "Current status of the order"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Shipped', 'Complete', 'Returned', 'Cancelled', 'Processing']
+
+  - name: stg_thelook__order_items
+    description: "Cleaned order line items from TheLook"
+    columns:
+      - name: order_item_id
+        description: "Primary key for order items"
+        tests:
+          - unique
+          - not_null
+      - name: order_id
+        description: "Foreign key to orders"
+        tests:
+          - not_null
+      - name: product_id
+        description: "Foreign key to products"
+        tests:
+          - not_null
+      - name: sale_price
+        description: "Price the item was sold at"
+        tests:
+          - not_null
+
+  - name: stg_thelook__products
+    description: "Cleaned product catalogue from TheLook"
+    columns:
+      - name: product_id
+        description: "Primary key for products"
+        tests:
+          - unique
+          - not_null
+      - name: product_name
+        description: "Product display name"
+        tests:
+          - not_null
+      - name: product_category
+        description: "Product category"
+        tests:
+          - not_null
+
+  - name: stg_thelook__users
+    description: "Cleaned customer data from TheLook"
+    columns:
+      - name: customer_id
+        description: "Primary key for customers"
+        tests:
+          - unique
+          - not_null
+      - name: email
+        description: "Customer email address"
+        tests:
+          - not_null

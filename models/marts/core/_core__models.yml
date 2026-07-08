@@ -1,0 +1,65 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Customer dimension enriched with lifetime order metrics"
+    columns:
+      - name: customer_id
+        description: "Primary key — unique customer identifier"
+        tests:
+          - unique
+          - not_null
+      - name: lifetime_order_count
+        description: "Total number of orders placed by this customer"
+        tests:
+          - not_null
+
+  - name: dim_products
+    description: "Product dimension with cumulative sales metrics and profit margin"
+    columns:
+      - name: product_id
+        description: "Primary key — unique product identifier"
+        tests:
+          - unique
+          - not_null
+      - name: product_category
+        description: "Product category"
+        tests:
+          - not_null
+      - name: retail_price
+        description: "Listed retail price"
+        tests:
+          - not_null
+
+  - name: fct_order_items
+    description: "Fact table — one row per order line item with full order and product context"
+    columns:
+      - name: order_item_id
+        description: "Primary key — unique line item identifier"
+        tests:
+          - unique
+          - not_null
+      - name: order_id
+        description: "Foreign key to orders"
+        tests:
+          - not_null
+      - name: customer_id
+        description: "Foreign key to dim_customers"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: customer_id
+      - name: product_id
+        description: "Foreign key to dim_products"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_products')
+                field: product_id
+      - name: sale_price
+        description: "Actual sale price of the item"
+        tests:
+          - not_null
