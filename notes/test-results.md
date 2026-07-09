@@ -1,7 +1,4 @@
-avaintha@Shereen-PC:~/Documents/ecommerce_analytics$ dbt test
-dbt-fusion 2.0.0-preview.193
-   Loading ~/.dbt/profiles.yml
-New version available 2.0.0-preview.196 (run `dbt system update`)
+First dbt test
 
 =================================================================================================== Errors and Warnings ===================================================================================================
 [error] [DbtYamlValidationError (dbt1159)]: Deprecated test arguments: ["field", "to"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
@@ -18,8 +15,9 @@ suggestion: Run 'dbt deps' to see the latest fusion compatible packages. For com
 ==================================================================================================== Execution Summary ====================================================================================================
 Finished 'test' with 1 warning and 3 errors for target 'dev' [436ms]
 
+-- Forgot to use arguments: above those statements, added them and it passed the tests.
 
-avaintha@Shereen-PC:~/Documents/ecommerce_analytics$ dbt test
+Second dbt test
 dbt-fusion 2.0.0-preview.193
    Loading ~/.dbt/profiles.yml
     Passed [  2.52s] test  not_null_stg_thelook__orders_order_id
@@ -68,7 +66,7 @@ Summary: 32 total | 31 success | 1 error
 
 -- There's 2 NULLs in product name, thus I have added a WHERE clause that excludes them in the stg_the_look__products.sql file. Rebuilt the model and then the test was succesful.
 
-avaintha@Shereen-PC:~/Documents/ecommerce_analytics$ dbt test
+Third dbt test
 dbt-fusion 2.0.0-preview.193
    Loading ~/.dbt/profiles.yml
     Passed [  1.96s] test  not_null_stg_thelook__order_items_order_item_id
@@ -117,7 +115,7 @@ Summary: 32 total | 31 success | 1 error
 
 --So this error was because of the 2 NULLs still being in the join fact table. I had to also use a WHERE clause to filter out those NULLs and rebuild the table to fix the issue.
 
-avaintha@Shereen-PC:~/Documents/ecommerce_analytics$ dbt test
+Fourth dbt test
 dbt-fusion 2.0.0-preview.193
    Loading ~/.dbt/profiles.yml
     Passed [  2.26s] test  unique_stg_thelook__products_product_id
