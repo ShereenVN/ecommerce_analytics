@@ -63,3 +63,19 @@ models:
         description: "Actual sale price of the item"
         tests:
           - not_null
+
+  - name: mart_traffic_source_revenue
+    description: "Monthly revenue and order metrics broken down by traffic source, for stakeholder reporting"
+    columns:
+      - name: traffic_source
+        description: "Customer acquisition channel"
+        tests:
+          - not_null
+      - name: order_month
+        description: "Month of orders, truncated to first day of month"
+        tests:
+          - not_null
+      - name: total_revenue
+        description: "Total revenue generated from orders"
+        tests:
+          - not_null          
