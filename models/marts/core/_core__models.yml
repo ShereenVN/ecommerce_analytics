@@ -78,4 +78,28 @@ models:
       - name: total_revenue
         description: "Total revenue generated from orders"
         tests:
-          - not_null          
+          - not_null
+
+  - name: mart_order_fulfillment
+    description: "Monthly order fulfillment metrics for stakeholder reporting"
+    columns:
+      - name: order_month
+        description: "Month of orders"
+        tests:
+          - not_null
+      - name: total_orders
+        description: "Total number of orders placed"
+        tests:
+          - not_null 
+      - name: product_category
+        description: "Product category"
+        tests:
+          - not_null
+      - name: return_rate
+        description: "Percentage of orders returned"
+        tests:
+          - not_null
+      - name: cancel_rate
+        description: "Percentage of orders canceled"
+        tests:
+          - not_null
