@@ -103,3 +103,27 @@ models:
         description: "Percentage of orders canceled"
         tests:
           - not_null
+
+  - name: mart_traffic_source_conversion
+    description: "Monthly conversion funnel metrics by traffic source"
+    columns:
+      - name: traffic_source
+        description: "Customer acquisition channel"
+        tests:
+          - not_null
+      - name: event_month
+        description: "Month of events"
+        tests:
+          - not_null
+      - name: product_viewers
+        description: "Distinct users who viewed a product"
+        tests:
+          - not_null
+      - name: cart_adds
+        description: "Distinct users who added to cart"
+        tests:
+          - not_null
+      - name: purchasers
+        description: "Distinct users who completed a purchase"
+        tests:
+          - not_null

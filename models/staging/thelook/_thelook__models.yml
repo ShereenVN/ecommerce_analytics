@@ -71,3 +71,33 @@ models:
         description: "Customer email address"
         tests:
           - not_null
+
+  - name: stg_thelook__events
+    description: "Cleaned user interaction events from TheLook e-commerce platform"
+    columns:
+      - name: event_id
+        description: "Primary key — unique event identifier"
+        tests:
+          - unique
+          - not_null
+      - name: user_id
+        description: "User identifier — NULL for anonymous users"
+      - name: session_id
+        description: "Session identifier — groups events within a single browsing session"
+        tests:
+          - not_null
+      - name: event_type
+        description: "Type of event — product, cart, purchase, cancel, home, department"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['product', 'cart', 'purchase', 'cancel', 'home', 'department']
+      - name: traffic_source
+        description: "Channel through which the user arrived"
+        tests:
+          - not_null
+      - name: event_at
+        description: "Timestamp of the event"
+        tests:
+          - not_null

@@ -13,3 +13,5 @@ sources:
         description: "Product catalogue with categories and pricing"
       - name: users
         description: "Customer registration and demographic data"
+      - name: events
+        description: "User interaction events on the e-commerce platform, including page views and clicks"
