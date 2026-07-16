@@ -45,7 +45,7 @@ final as (
     from order_items
     left join orders on order_items.order_id = orders.order_id
     left join products on order_items.product_id = products.product_id
-    where products.product_name is not null
+    where products.product_name is not null -- 2 rows with NULL product names found in source, excluded to maintain referential integrity
 )
 
 select * from final

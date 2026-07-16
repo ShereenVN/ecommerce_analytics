@@ -20,4 +20,4 @@ renamed as (
 )
 
 select * from renamed
-where product_name is not null
+where product_name is not null  -- 2 rows with NULL product names found in source, excluded to maintain referential integrity

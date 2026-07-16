@@ -1,6 +1,6 @@
 with events as (
     select * from {{ ref('stg_thelook__events') }}
-    where user_id is not null
+    where user_id is not null   -- anonymous users never reach purchase step, excluded from funnel
 ),
 
 funnel as (

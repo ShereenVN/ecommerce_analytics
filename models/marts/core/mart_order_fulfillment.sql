@@ -1,4 +1,6 @@
 with fulfillment_times as (
+    -- Only includes orders where both timestamps exist and shipping time is non-negative.
+    -- Negative values (shipped_at before ordered_at) are a known data quality issue in the source.
     select
         product_category,
         DATE_TRUNC(ordered_at, MONTH) as order_month,
@@ -12,12 +14,20 @@ with fulfillment_times as (
 ),
 
 order_rates as (
+    -- Counts distinct orders per status to avoid inflating rates when an order
+    -- contains multiple items in the same category.
     select
         product_category,
         DATE_TRUNC(ordered_at, MONTH) as order_month,
         COUNT(DISTINCT order_id) as total_orders,
-        ROUND(COUNTIF(order_status = 'Returned') / COUNT(DISTINCT order_id) * 100, 2) as return_rate,
-        ROUND(COUNTIF(order_status = 'Cancelled') / COUNT(DISTINCT order_id) * 100, 2) as cancel_rate
+        ROUND(
+            COUNT(DISTINCT CASE WHEN order_status = 'Returned' THEN order_id END)
+            / COUNT(DISTINCT order_id) * 100, 2
+        ) as return_rate,
+        ROUND(
+            COUNT(DISTINCT CASE WHEN order_status = 'Cancelled' THEN order_id END)
+            / COUNT(DISTINCT order_id) * 100, 2
+        ) as cancel_rate
     from {{ ref('fct_order_items') }}
     group by product_category, order_month
 ),
